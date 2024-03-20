@@ -1,8 +1,10 @@
 const express = require("express");
 const { createTodo, updateTodo } = require("./types");
 const { todo } = require("./db");
+const cors = require("cors")
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.post('/todo' , async function(req,res){
@@ -27,9 +29,9 @@ app.post('/todo' , async function(req,res){
 });
 
 app.get('/todos' , async function(req,res){
-    const response = await todo.find({}); //{} means give me everything,no filters
+    const todos = await todo.find({});
     res.json({
-        msg : response
+        todos
     })
 });
 
